@@ -13,14 +13,14 @@ use yii\widgets\InputWidget;
 /**
  * This is just an example.
  */
-class ImageAttachmentAsset extends AssetBundle
-{
+class ImageAttachmentAsset extends AssetBundle {
+
     public $sourcePath = '@zxbodya/yii2/imageAttachment/assets';
     public $js = [
         'jquery.iframe-transport.js',
         'jquery.imageAttachment.js',
-        // 'jquery.iframe-transport.min.js',
-        // 'jquery.imageAttachment.min.js',
+            // 'jquery.iframe-transport.min.js',
+            // 'jquery.imageAttachment.min.js',
     ];
     public $css = [
         'imageAttachment.css'

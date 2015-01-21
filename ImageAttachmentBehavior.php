@@ -1,4 +1,5 @@
 <?php
+
 namespace zxbodya\yii2\imageAttachment;
 
 use Imagine\Image\Box;
@@ -42,12 +43,13 @@ use yii\imagine\Image;
  *
  *
  */
-class ImageAttachmentBehavior extends Behavior
-{
+class ImageAttachmentBehavior extends Behavior {
+
     /**
      * @var string Type name assigned to model in image attachment action
      */
     public $type;
+
     /**
      * @var ActiveRecord the owner of this behavior
      */
@@ -58,26 +60,31 @@ class ImageAttachmentBehavior extends Behavior
      * @var int
      */
     public $previewHeight;
+
     /**
      * Widget preview width
      * @var int
      */
     public $previewWidth;
+
     /**
      * Extension for saved images
      * @var string
      */
     public $extension;
+
     /**
      * Path to directory where to save uploaded images
      * @var string
      */
     public $directory;
+
     /**
      * Directory Url, without trailing slash
      * @var string
      */
     public $url;
+
     /**
      * @var array Functions to generate image versions
      * @note Be sure to not modify image passed to your version function,
@@ -105,7 +112,6 @@ class ImageAttachmentBehavior extends Behavior
      * @var string
      */
     public $timeHash = '_';
-
     private $_imageId;
 
     /**
@@ -114,16 +120,18 @@ class ImageAttachmentBehavior extends Behavior
     public function attach($owner)
     {
         parent::attach($owner);
-        if (!isset($this->versions['original'])) {
+        if (!isset($this->versions['original']))
+        {
             $this->versions['original'] = function ($image) {
                 return $image;
             };
         }
-        if (!isset($this->versions['preview'])) {
+        if (!isset($this->versions['preview']))
+        {
             $this->versions['preview'] = function ($originalImage) {
                 /** @var ImageInterface $originalImage */
                 return $originalImage
-                    ->thumbnail(new Box($this->previewWidth, $this->previewHeight));
+                                ->thumbnail(new Box($this->previewWidth, $this->previewHeight));
             };
         }
     }
@@ -136,7 +144,6 @@ class ImageAttachmentBehavior extends Behavior
             ActiveRecord::EVENT_AFTER_FIND => 'afterFind',
         ];
     }
-
 
     public function beforeDelete()
     {
@@ -152,17 +159,19 @@ class ImageAttachmentBehavior extends Behavior
     {
         // if primary key changes - move image
         $imageId = $this->getImageId();
-        if ($this->_imageId != $imageId) {
-            foreach ($this->versions as $version => $config) {
+        if ($this->_imageId != $imageId)
+        {
+            foreach ($this->versions as $version => $config)
+            {
                 $oldPath = $this->getFilePath($version, $this->_imageId);
                 $newPath = $this->getFilePath($version, $imageId);
-                if (file_exists($oldPath)) {
+                if (file_exists($oldPath))
+                {
                     rename($oldPath, $newPath);
                 }
             }
         }
     }
-
 
     public function hasImage($ext = null)
     {
@@ -173,10 +182,12 @@ class ImageAttachmentBehavior extends Behavior
 
     private function getFileName($version = '', $id = null, $ext = null)
     {
-        if ($id === null) {
+        if ($id === null)
+        {
             $id = $this->getImageId();
         }
-        if ($ext === null) {
+        if ($ext === null)
+        {
             $ext = $this->extension;
         }
 
@@ -185,13 +196,17 @@ class ImageAttachmentBehavior extends Behavior
 
     public function getUrl($version)
     {
-        if (!$this->hasImage()) {
+        if (!$this->hasImage())
+        {
             return null;
         }
-        if (!empty($this->timeHash)) {
+        if (!empty($this->timeHash))
+        {
             $time = filemtime($this->getFilePath($version));
             $suffix = '?' . $this->timeHash . '=' . crc32($time);
-        } else {
+        }
+        else
+        {
             $suffix = '';
         }
 
@@ -210,7 +225,8 @@ class ImageAttachmentBehavior extends Behavior
      */
     public function removeImages($ext = null)
     {
-        foreach ($this->versions as $version => $fn) {
+        foreach ($this->versions as $version => $fn)
+        {
             $this->removeFile($this->getFilePath($version, null, $ext));
         }
     }
@@ -226,16 +242,14 @@ class ImageAttachmentBehavior extends Behavior
 
         $originalImage = Image::getImagine()->open($path);
         //save image in original size
-
         //create image preview for gallery manager
-        foreach ($this->versions as $version => $fn) {
+        foreach ($this->versions as $version => $fn)
+        {
             /** @var Image $image */
-
             call_user_func($fn, $originalImage)
-                ->save($this->getFilePath($version));
+                    ->save($this->getFilePath($version));
         }
     }
-
 
     /**
      * Regenerate image versions
@@ -245,20 +259,26 @@ class ImageAttachmentBehavior extends Behavior
      */
     public function updateImages($oldExt = null)
     {
-        if ($this->hasImage($oldExt)) {
+        if ($this->hasImage($oldExt))
+        {
             $this->checkDirectories();
-            if ($oldExt !== null) {
+            if ($oldExt !== null)
+            {
                 $originalImage = Image::getImagine()->open($this->getFilePath('original', null, $oldExt));
                 $originalImage->save($this->getFilePath('original'));
                 $this->removeImages($oldExt);
-            } else {
+            }
+            else
+            {
                 $originalImage = Image::getImagine()->open($this->getFilePath('original'));
             }
-            foreach ($this->versions as $version => $fn) {
-                if ($version !== 'original') {
+            foreach ($this->versions as $version => $fn)
+            {
+                if ($version !== 'original')
+                {
                     $this->removeFile($this->getFilePath($version));
                     call_user_func($fn, $originalImage)
-                        ->save($this->getFilePath($version));
+                            ->save($this->getFilePath($version));
                 }
             }
         }
@@ -266,32 +286,37 @@ class ImageAttachmentBehavior extends Behavior
 
     private function removeFile($fileName)
     {
-        if (file_exists($fileName)) {
+        if (file_exists($fileName))
+        {
             @unlink($fileName);
         }
     }
 
-
     private function getImageId()
     {
         $pk = $this->owner->getPrimaryKey();
-        if (is_array($pk)) {
+        if (is_array($pk))
+        {
             return implode('_', $pk);
-        } else {
+        }
+        else
+        {
             return $pk;
         }
     }
 
     private function checkDirectory($path)
     {
-        if (!file_exists($path)) {
+        if (!file_exists($path))
+        {
             mkdir($path, 0777);
         }
     }
 
     private function checkDirectories()
     {
-        if (!file_exists($this->directory)) {
+        if (!file_exists($this->directory))
+        {
             $this->checkPath();
         }
 
@@ -304,16 +329,19 @@ class ImageAttachmentBehavior extends Behavior
         $i = 0;
 
         $path = implode('/', array_slice($parts, 0, count($parts) - $i));
-        while (!file_exists($path)) {
+        while (!file_exists($path))
+        {
             $i++;
             $path = implode('/', array_slice($parts, 0, count($parts) - $i));
         }
         $i--;
         $path = implode('/', array_slice($parts, 0, count($parts) - $i));
-        while ($i >= 0) {
+        while ($i >= 0)
+        {
             mkdir($path, 0777);
             $i--;
             $path = implode('/', array_slice($parts, 0, count($parts) - $i));
         }
     }
+
 }

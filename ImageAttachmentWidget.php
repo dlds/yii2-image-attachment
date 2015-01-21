@@ -1,4 +1,5 @@
 <?php
+
 namespace zxbodya\yii2\imageAttachment;
 
 use Yii;
@@ -21,14 +22,13 @@ use yii\helpers\Url;
  *
  * @author Bogdan Savluk <savluk.bogdan@gmail.com>
  */
-class ImageAttachmentWidget extends Widget
-{
+class ImageAttachmentWidget extends Widget {
+
     /**
      * Route to ImageAttachmentAction
      * @var string
      */
     public $apiRoute;
-
     public $assets;
 
     /**
@@ -51,7 +51,6 @@ class ImageAttachmentWidget extends Widget
         return $this->model->getBehavior($this->behaviorName);
     }
 
-
     public function init()
     {
         parent::init();
@@ -72,7 +71,8 @@ class ImageAttachmentWidget extends Widget
 
     public function run()
     {
-        if ($this->apiRoute === null) {
+        if ($this->apiRoute === null)
+        {
             throw new Exception('$apiRoute must be set.', 500);
         }
 
@@ -84,12 +84,12 @@ class ImageAttachmentWidget extends Widget
             'previewWidth' => $attachmentBehavior->previewWidth,
             'previewHeight' => $attachmentBehavior->previewHeight,
             'apiUrl' => Url::to(
-                [
-                    $this->apiRoute,
-                    'type' => $attachmentBehavior->type,
-                    'behavior' => $this->behaviorName,
-                    'id' => $attachmentBehavior->owner->getPrimaryKey(),
-                ]
+                    [
+                        $this->apiRoute,
+                        'type' => $attachmentBehavior->type,
+                        'behavior' => $this->behaviorName,
+                        'id' => $attachmentBehavior->owner->getPrimaryKey(),
+                    ]
             ),
         ];
 
