@@ -1,28 +1,32 @@
 {
-  "name": "zxbodya/yii2-image-attachment",
-  "description": "Extension for yii, to handle images attached to ActiveRecord",
-  "type": "yii2-extension",
-  "keywords": [
-    "yii2",
-    "extension",
-    "image",
-    "behavior",
-    "active record"
-  ],
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Bogdan Savluk",
-      "email": "savluk.bogdan@gmail.com"
+    "name": "dlds/yii2-imageable",
+    "description": "Yii2 extension for handling AR images",
+    "type": "yii2-extension",
+    "keywords": ["yii2", "extension", "image"],
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/dlds/yii2-imageable/issues",
+        "wiki": "https://github.com/dlds/yii2-imageable/wiki",
+        "source": "https://github.com/dlds/yii2-imageable"
+    },
+    "authors": [
+        {
+            "name": "Jiri Svoboda",
+            "email": "jiri.svoboda@dlds.cz"
+        },
+        {
+            "name": "Bogdan Savluk",
+            "email": "savluk.bogdan@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "yiisoft/yii2-jui": "*",
+        "yiisoft/yii2-imagine": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "dlds\\imageable\\": ""
+        }
     }
-  ],
-  "require": {
-    "yiisoft/yii2-jui": "*",
-    "yiisoft/yii2-imagine": "*"
-  },
-  "autoload": {
-    "psr-4": {
-      "zxbodya\\yii2\\imageAttachment\\": ""
-    }
-  }
 }
