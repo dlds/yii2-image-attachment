@@ -1,19 +1,17 @@
 <?php
+
 /**
  * @var View $this
  */
 use yii\web\View;
-use zxbodya\yii2\imageAttachment\ImageAttachmentWidget;
+use dlds\imageable\widgets\Manager;
 
 /** @var ImageAttachmentWidget $widget */
 $widget = $this->context;
 ?>
-<?php
-if ($widget->model->isNewRecord): ?>
+<?php if ($widget->model->isNewRecord): ?>
     <div class="imageAttachment">
-        <div class="preview"
-             style="width: <?php echo $widget->getAttachmentBehavior()->previewWidth ?>px;
-                 height: <?php echo $widget->getAttachmentBehavior()->previewHeight ?>px;">
+        <div class="preview">
             <div class="no-image">
                 <?php echo Yii::t('imageAttachment/main', 'Before image upload<br> save this.'); ?>
             </div>
@@ -33,7 +31,7 @@ if ($widget->model->isNewRecord): ?>
                 <span class="file_label"
                       data-upload-text="<?php echo Yii::t('imageAttachment/main', 'Upload…'); ?>"
                       data-replace-text="<?php echo Yii::t('imageAttachment/main', 'Replace…'); ?>">
-                      </span>
+                </span>
                 <input type="file" name="image" class="afile" accept="image/*" multiple="multiple"/>
             </span>
 

@@ -27,10 +27,12 @@
 
     var previewWrap = $('.preview', el);
     var previewImage = $('img', previewWrap);
+    /*
     previewWrap.css({
       'width': previewWidth + 'px',
       'height': previewHeight + 'px'
     });
+    */
     if (hasImage) {
       updatePreview(previewUrl);
     } else {

@@ -1,18 +1,21 @@
 .imageAttachment {
-  display: inline-block;
-  position: relative;
-  border: 1px solid #DDD;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); }
-  .imageAttachment .actions-bar {
+    width: 100%;
+    height: 100%;
+    max-height: 200px;
+    display: inline-block;
+    position: relative;
+    border: 1px solid #DDD;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); }
+.imageAttachment .actions-bar {
     margin: 0;
     padding-top: 4px;
     padding-bottom: 4px; }
-  .imageAttachment .no-image {
+.imageAttachment .no-image {
     color: #777;
     font-weight: bold;
     font-size: 20px;
@@ -20,20 +23,23 @@
     vertical-align: middle;
     display: block;
     text-align: center; }
-  .imageAttachment.with-image .no-image {
+.imageAttachment.with-image .no-image {
     display: none; }
-  .imageAttachment .preview {
+.imageAttachment .preview {
     text-align: center;
     min-height: 140px;
     min-width: 226px; }
-  .imageAttachment img {
+.imageAttachment img {
     display: none; }
-  .imageAttachment.with-image img {
-    display: inline-block; }
-  .imageAttachment .btn-file {
+.imageAttachment.with-image img {
+    display: inline-block; 
+    width: 100%;
+    max-height: 150px;
+}
+.imageAttachment .btn-file {
     position: relative;
     overflow: hidden; }
-  .imageAttachment .btn-file input[type=file] {
+.imageAttachment .btn-file input[type=file] {
     position: absolute;
     top: 0;
     right: 0;
@@ -47,14 +53,14 @@
     background: white;
     cursor: inherit;
     display: block; }
-  .imageAttachment .overlay {
+.imageAttachment .overlay {
     display: none;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%; }
-  .imageAttachment .overlay-bg {
+.imageAttachment .overlay-bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -62,9 +68,9 @@
     opacity: .5;
     width: 100%;
     height: 100%; }
-  .imageAttachment.over .overlay {
+.imageAttachment.over .overlay {
     display: block; }
-  .imageAttachment .drop-hint {
+.imageAttachment .drop-hint {
     background-color: #efefef;
     border: 2px #777 dashed;
     position: absolute;
@@ -74,25 +80,25 @@
     width: 50%;
     margin: -70px 0 0 -25%;
     text-align: center; }
-  .imageAttachment .drop-hint-info {
+.imageAttachment .drop-hint-info {
     color: #777;
     font-weight: bold;
     font-size: 20px;
     margin-top: 35px;
     vertical-align: middle;
     display: inline-block; }
-  .imageAttachment .progress-overlay {
+.imageAttachment .progress-overlay {
     display: none;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%; }
-    .imageAttachment .progress-overlay .progress-modal {
-      background-color: #efefef;
-      position: absolute;
-      top: 50%;
-      margin-top: -60px;
-      width: 100%; }
-      .imageAttachment .progress-overlay .progress-modal .info {
-        padding: 10px; }
+.imageAttachment .progress-overlay .progress-modal {
+    background-color: #efefef;
+    position: absolute;
+    top: 50%;
+    margin-top: -60px;
+    width: 100%; }
+.imageAttachment .progress-overlay .progress-modal .info {
+    padding: 10px; }

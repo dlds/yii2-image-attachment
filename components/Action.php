@@ -1,15 +1,14 @@
 <?php
 
-namespace zxbodya\yii2\imageAttachment;
+namespace dlds\imageable\components;
 
-use Imagine\Image\Box;
 use Yii;
-use yii\base\Action;
-use yii\db\ActiveRecord;
 use yii\helpers\Json;
-use yii\imagine\Image;
 use yii\web\BadRequestHttpException;
 use yii\web\UploadedFile;
+use yii\db\ActiveRecord;
+use Imagine\Image\Box;
+use yii\imagine\Image;
 
 /**
  * Action to handle calls from ImageAttachmentWidget,
@@ -27,7 +26,7 @@ use yii\web\UploadedFile;
  * @author Bogdan Savluk <savluk.bogdan@gmail.com>
  *
  */
-class ImageAttachmentAction extends Action {
+class Action extends \yii\base\Action {
 
     /**
      * @var array Mapping between types and model class names
@@ -52,7 +51,7 @@ class ImageAttachmentAction extends Action {
         {
             $behavior->removeImages();
 
-            return Json::encode(array());
+            return Json::encode([]);
         }
         else
         {
@@ -60,11 +59,7 @@ class ImageAttachmentAction extends Action {
             $imageFile = UploadedFile::getInstanceByName('image');
             $behavior->setImage($imageFile->tempName);
 
-            return Json::encode(
-                            array(
-                                'previewUrl' => $behavior->getUrl('preview'),
-                            )
-            );
+            return Json::encode(['previewUrl' => $behavior->getUrl('preview')]);
         }
     }
 

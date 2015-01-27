@@ -1,6 +1,6 @@
 <?php
 
-namespace zxbodya\yii2\imageAttachment;
+namespace dlds\imageable\bundles;
 
 use Yii;
 use yii\helpers\Html;
@@ -13,17 +13,17 @@ use yii\widgets\InputWidget;
 /**
  * This is just an example.
  */
-class ImageAttachmentAsset extends AssetBundle {
+class CoreAsset extends AssetBundle {
 
-    public $sourcePath = '@zxbodya/yii2/imageAttachment/assets';
+    public $sourcePath = '@dlds/imageable/assets';
     public $js = [
         'jquery.iframe-transport.js',
-        'jquery.imageAttachment.js',
+        'jquery.imageable.js',
             // 'jquery.iframe-transport.min.js',
             // 'jquery.imageAttachment.min.js',
     ];
     public $css = [
-        'imageAttachment.css'
+        'imageable.css'
     ];
     public $depends = [
         'yii\web\JqueryAsset',

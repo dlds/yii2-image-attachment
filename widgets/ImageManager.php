@@ -1,13 +1,14 @@
 <?php
 
-namespace zxbodya\yii2\imageAttachment;
+namespace dlds\imageable\widgets;
 
 use Yii;
 use yii\base\Exception;
-use yii\base\Widget;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+use dlds\imageable\bundles\CoreAsset;
 
 /**
  * Widget to provide interface for image upload to models with
@@ -22,7 +23,7 @@ use yii\helpers\Url;
  *
  * @author Bogdan Savluk <savluk.bogdan@gmail.com>
  */
-class ImageAttachmentWidget extends Widget {
+class ImageManager extends \yii\base\Widget {
 
     /**
      * Route to ImageAttachmentAction
@@ -63,7 +64,7 @@ class ImageAttachmentWidget extends Widget {
         $i18n->translations['imageAttachment/*'] = [
             'class' => 'yii\i18n\PhpMessageSource',
             'sourceLanguage' => 'en-US',
-            'basePath' => '@zxbodya/yii2/imageAttachment/messages',
+            'basePath' => '@dlds/imageable/messages',
             'fileMap' => [
             ],
         ];
@@ -76,6 +77,11 @@ class ImageAttachmentWidget extends Widget {
             throw new Exception('$apiRoute must be set.', 500);
         }
 
+        if (!is_array($this->apiRoute))
+        {
+            $this->apiRoute = [$this->apiRoute];
+        }
+
 
         $attachmentBehavior = $this->getAttachmentBehavior();
         $options = [
@@ -83,23 +89,21 @@ class ImageAttachmentWidget extends Widget {
             'previewUrl' => $attachmentBehavior->getUrl('preview'),
             'previewWidth' => $attachmentBehavior->previewWidth,
             'previewHeight' => $attachmentBehavior->previewHeight,
-            'apiUrl' => Url::to(
-                    [
-                        $this->apiRoute,
+            'apiUrl' => Url::to(ArrayHelper::merge($this->apiRoute, [
                         'type' => $attachmentBehavior->type,
                         'behavior' => $this->behaviorName,
                         'id' => $attachmentBehavior->owner->getPrimaryKey(),
-                    ]
+                    ])
             ),
         ];
 
         $optionsJS = Json::encode($options);
 
         $view = $this->getView();
-        ImageAttachmentAsset::register($view);
+        CoreAsset::register($view);
         $view->registerJs("$('#{$this->id}').imageAttachment({$optionsJS});");
 
-        return $this->render('imageAttachment');
+        return $this->render('@dlds/imageable/views/imageManager');
     }
 
 }

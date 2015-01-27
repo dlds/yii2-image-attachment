@@ -1,10 +1,9 @@
 <?php
 
-namespace zxbodya\yii2\imageAttachment;
+namespace dlds\imageable\components;
 
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
-use yii\base\Behavior;
 use yii\db\ActiveRecord;
 use yii\imagine\Image;
 
@@ -43,7 +42,7 @@ use yii\imagine\Image;
  *
  *
  */
-class ImageAttachmentBehavior extends Behavior {
+class Behavior extends \yii\base\Behavior {
 
     /**
      * @var string Type name assigned to model in image attachment action
@@ -59,13 +58,13 @@ class ImageAttachmentBehavior extends Behavior {
      * Widget preview height
      * @var int
      */
-    public $previewHeight;
+    public $previewHeight = 200;
 
     /**
      * Widget preview width
      * @var int
      */
-    public $previewWidth;
+    public $previewWidth = 300;
 
     /**
      * Extension for saved images
